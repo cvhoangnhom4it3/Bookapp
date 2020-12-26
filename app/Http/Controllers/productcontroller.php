@@ -27,19 +27,19 @@ class productcontroller extends changeTitle
         return view('PagesAdmin.insert_product',compact('danhmuc','theloai'));
     }
     public function post_insert_product(Request $request){
-        // $this->validate($request,
-        // [
-        //     'tensanpham'=>'required',
-        //     'avatar'=>'required',
-        //     'giasanpham'=>'required',
-        //     'mahang'=>'required',
-        // ],
-        // [
-        //     'tensl.required'=>'Bạn chưa nhập tên slide',
-        //     'avatar.required'=>'Bạn chưa chọn ảnh',
-        //     'giasanpham.required'=>'Bạn chưa nhập giá sản phẩm',
-        //     'mahang.required'=>'Bạn chưa nhập mã hàng'
-        // ]);
+        $this->validate($request,
+        [
+            'tensanpham'=>'required',
+            'avatar'=>'required',
+            'giasanpham'=>'required',
+            
+        ],
+        [
+            'tensl.required'=>'Bạn chưa nhập tên slide',
+            'avatar.required'=>'Bạn chưa chọn ảnh',
+            'giasanpham.required'=>'Bạn chưa nhập giá sản phẩm',
+            
+        ]);
         $product = new Product;
         $product->Mahang = $request->mahang;
         $product->Tensanpham = $request->tensanpham;
@@ -54,14 +54,19 @@ class productcontroller extends changeTitle
         $product->Motasanpham = $request->mota;
         $product->Giagoc = $request->giasanpham;
         $product->Phantramkm = $request->phantramkm;
-        $product->New = $request->nhansanpham;
 
-        $product->Tenkhongdau = $this->changeTitle($request->tensanpham);
-        if (isset($request->phantramkm)) {
-        	$product->Giakm = 10000;
+        if(isset($request->nhansanpham)){
+        	$product->New = $request->nhansanpham;
         }
         else{
-        	$product->Giakm = 100000;
+        	$product->New = 0;
+        }
+        $product->Tenkhongdau = $this->changeTitle($request->tensanpham);
+        if (isset($request->phantramkm)) {
+        	$product->Giakm = ($request->giasanpham - ($request->giasanpham*($request->phantramkm / 100)));
+        }
+        else{
+        	$product->Giakm = 0;
         }
         
         $product->ID_TL = $request->theloai;

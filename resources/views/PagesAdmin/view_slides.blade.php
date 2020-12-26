@@ -34,7 +34,7 @@
                     @foreach($slide as $sl)
                         <div class="right__slide">
                             <div class="right__slideTitle">{{$sl->Tenslide}}</div>
-                            <div class="right__slideImage"><img src="assets/images/slide/{{$sl->Url}}" alt=""></div>
+                            <div class="right__slideImage"><img src="{{$sl->Url}}" alt=""></div>
                             <div class="right__slideIcons">
                                 <a class="right__slideIcon" href="Admin/edit_slide/{{$sl->ID}}"><img src="assets/assets/icon-pencil.svg" alt=""></a>
                                 <a class="right__slideIcon" href="Admin/delete_slide/{{$sl->ID}}"><img src="assets/assets/icon-trash.svg" alt=""></a>

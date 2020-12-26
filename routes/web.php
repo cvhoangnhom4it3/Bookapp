@@ -10,7 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/clear-cache',function(){
+	$exitCode = Artisan::call('cache:clear');
+});
 Route::get('/', function () {
     return view('PagesAdmin.dashboard');
 });

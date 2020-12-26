@@ -64,14 +64,6 @@
                         <input type="file">
                     </div> --}}
                     <div class="right__inputWrapper">
-                        <label for="label">Nhãn sản phẩm</label>
-                        <select name="nhansanpham">
-                            <option disabled selected>Nhãn sản phẩm</option>
-                            <option value="1">New</option>
-                            <option value="0">Old</option>
-                        </select>
-                    </div>
-                    <div class="right__inputWrapper">
                         <label for="title">Giá sản phẩm</label>
                         <input type="text" placeholder="Giá sản phẩm" name="giasanpham" value="{{ old('giasanpham') }}">
                     </div>
@@ -83,6 +75,15 @@
                         <label for="title">Mã hàng</label>
                         <input type="text" placeholder="Từ khoá" name="mahang" value="{{ old('mahang') }}">
                     </div>
+                    <div class="right__inputWrapper">
+                        <label for="label">Nhãn sản phẩm</label>
+                        <select name="nhansanpham">
+                            <option disabled selected>Nhãn sản phẩm</option>
+                            <option value="1">New</option>
+                            <option value="0">Old</option>
+                        </select>
+                    </div>
+                    
                     <div class="right__inputWrapper">
                         <label for="title">Nhà cung cấp</label>
                         <input type="text" placeholder="Từ khoá" name="nhacungcap" value="{{ old('nhacungcap') }}"> 

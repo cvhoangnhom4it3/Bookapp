@@ -45,7 +45,7 @@ class Slidecontroller extends Controller
                 $avatar = str_random(4)."_".$name;
             }
             $file->move("assets/images/slide",$avatar);
-            $slide->Url = $avatar;
+            $slide->Url = "assets/images/slide".$avatar;
         }
         else{
             $slide->Url = "";
