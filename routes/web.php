@@ -54,6 +54,7 @@ Route::group(['prefix'=>'Admin'],function(){
 	Route::get('delete_product/{id}', 'productcontroller@delete_product');
 	Route::group(['prefix'=>'ajax'],function(){
 		Route::get('theloai/{iddanhmuc}','Ajaxcontroller@get_theloai');
+		Route::get('ready_theloai/{iddanhmuc}/{id_product}','Ajaxcontroller@get_ready_theloai');
 	});
 
 	Route::get('insert_admin','pagecontroller@insert_admin');
@@ -65,26 +66,5 @@ Route::group(['prefix'=>'Admin'],function(){
 	Route::get('edit_admin','pagecontroller@edit_admin');
 	Route::get('edit_coupon','pagecontroller@edit_coupon');
 	Route::get('edit_css','pagecontroller@edit_css');
-	//Route::get('typography','pagecontroller@typography');
-	// Route::get('upgrade','pagecontroller@upgrade');
-	// Route::get('user','pagecontroller@user');
-	// Route::group(['prefix'=>'truyen'],function(){
-	// 	Route::get('danhsach','truyenController@gettruyen');
-	// 	Route::get('them','truyenController@getthem');
-	// 	Route::post('them','truyenController@postthem');
-	// 	Route::get('sua','truyenController@suatruyen');
-	// 	Route::get('xoa','truyenController@xoatruyen');
-	// });
-	// Route::group(['prefix'=>'chapter'],function(){
-	// 	Route::get('them','chapterController@getthem');
-	// 	Route::get('sua','chapterController@suachapter');
-	// 	Route::get('xoa','chapterController@xoachapter');
-	// 	Route::post('them','chapterController@postthem');
-	// });
-	// Route::group(['prefix'=>'image'],function(){
-	// 	Route::get('them','imageController@getthem');
-	// 	Route::get('sua','imageController@suaimage');
-	// 	Route::get('xoa','imageController@xoaimage');
-	// 	Route::post('them','imageController@postthem');
-	// });
+	
 });

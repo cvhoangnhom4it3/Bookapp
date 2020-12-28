@@ -13,12 +13,24 @@ class productcontroller extends changeTitle
 {
     // public function view_product(){
        	
-    //    	$slide = Slide::paginate(12);
-    //    	// printf($danhmuc);
-    //    	// exit();
-    //     return view('PagesAdmin.view_product',compact('slide'));
+    //    	$products = Product::with('theloai')->paginate(15);
+     
+    //     $TenTL = array();
+        
+    //     foreach ($products as $product) {
+    //         array_push($TenTL, $product->theloai->TenTL);  
+    //     }
+     
+    //     return view('PagesAdmin.view_product',compact('products'));
 
     // }
+    public function view_product(){
+        
+        $products = Product::paginate(15);
+     
+        return view('PagesAdmin.view_product',compact('products'));
+
+    }
     public function get_insert_product(Request $request){
 
     	$danhmuc = Danhmuc::all();
@@ -92,50 +104,83 @@ class productcontroller extends changeTitle
         
       return redirect('Admin/insert_product')->with('thongbao','Thêm thành công');
     }
-    // public function edit_product($id ,Request $request){
+    public function edit_product($id ,Request $request){
        	
-    //    	$slide = Slide::find($id);
-    //    	// printf($danhmuc);
-    //    	// exit();
-    //     return view('PagesAdmin.edit_product',compact('slide'));
+       	$products = Product::find($id);
+        $theloai = Theloai::all();
+        $danhmuc = Danhmuc::all();
+        // dd($products->Theloai->Danhmuc->ID);
+        return view('PagesAdmin.edit_product',compact('products','theloai','danhmuc'));
 
-    // }
-    // public function post_edit_product(Request $request,$id){
-    //     $this->validate($request,
-    //     [
-    //         'tensl'=>'required'
+    }
+    public function post_edit_product(Request $request,$id){
+        $this->validate($request,
+        [
+            'tensanpham'=>'required',
+            'giasanpham'=>'required',
             
-    //     ],
-    //     [
-    //         'tensl.required'=>'Bạn chưa nhập tên sldie'
-    //     ]);
+        ],
+        [
+            'tensl.required'=>'Bạn chưa nhập tên slide',
+            'giasanpham.required'=>'Bạn chưa nhập giá sản phẩm',
+            
+        ]);
+        $products = Product::find($id);
+        $products->Mahang = $request->mahang;
+        $products->Tensanpham = $request->tensanpham;
+        $products->Nhacungcap = $request->nhacungcap;
+        $products->Nhaxuatban = $request->nhaxuatban;
+        $products->Tacgia = $request->tacgia;
+        $products->Hinhthucbia = $request->hinhthucbia;
+        $products->Namxb = $request->namxuatban;
+        $products->Trongluong = $request->trongluong;
+        $products->Kichthuocbaobi = $request->ktbaobi;
+        $products->Sotrang = $request->sotrang;
+        $products->Motasanpham = $request->mota;
+        $products->Giagoc = $request->giasanpham;
+        $products->Phantramkm = $request->phantramkm;
 
-    //     $slide = Slide::find($id);
-    //     $slide->Tenslide = $request->tensl;
-    //     $slide->Mota = $request->motasl;
+        if(isset($request->nhansanpham)){
+            $products->New = $request->nhansanpham;
+        }
+        else{
+            $products->New = 0;
+        }
+        
+        $products->Tenkhongdau = $this->changeTitle($request->tensanpham);
+        if (isset($request->phantramkm)) {
+            $products->Giakm = ($request->giasanpham - ($request->giasanpham*($request->phantramkm / 100)));
+        }
+        else{
+            $products->Giakm = 0;
+        }
+        
+        $products->ID_TL = $request->theloai;
 
-    //     if($request->hasFile('avatar')){
-    //         $file = $request->file('avatar');
-    //         $duoi = $file->getClientOriginalExtension();
-    //         if($duoi != "jpg" && $duoi != "png" && $duoi != "jpeg"){
-    //             return redirect('Admin/insert_slide')->with('loi','Không thể nhập file trên , Bạn chỉ được chọn ảnh - Thêm không thành công ?');
-    //         }
-    //         $name = $file->getClientOriginalName();
-    //         $avatar = str_random(4)."_".$name;
-    //         while (file_exists("assets/images/slide/".$avatar)) {
-    //             $avatar = str_random(4)."_".$name;
-    //         }
-    //         $file->move("assets/images/slide",$avatar);
-    //         unlink("assets/images/slide/".$lide->Url);
-    //         $slide->Url = $avatar;
-    //     }
-    //     $slide->save();
+        if($request->hasFile('avatar')){
+            $file = $request->file('avatar');
+            $duoi = $file->getClientOriginalExtension();
+            if($duoi != "jpg" && $duoi != "png" && $duoi != "jpeg"){
+                return redirect('Admin/insert_slide')->with('loi','Không thể nhập file trên , Bạn chỉ được chọn ảnh - Thêm không thành công ?');
+            }
+            $name = $file->getClientOriginalName();
+            $avatar = str_random(4)."_".$name;
+            while (file_exists("assets/images/product/".$avatar)) {
+                $avatar = str_random(4)."_".$name;
+            }
+            $file->move("assets/images/product",$avatar);
+            if($products->Url){
+               unlink($products->Url); 
+            }
+            $products->Url = "assets/images/product/".$avatar;
+        }
+        $products->save();
 
-    //   	return redirect('Admin/view_product')->with('thongbao','Cập nhật thành công');
-    //     // return redirect('Admin/edit_p_category/'.$id)->with('thongbao','Cập nhật thành công');
-    // }
-    // public function delete_slide($id){
-    //     Slide::find($id)->delete();
-    //     return redirect('Admin/view_product')->with('thongbao','Xóa thành công');
-    // }
+      	return redirect('Admin/view_product')->with('thongbao','Cập nhật thành công');
+        // return redirect('Admin/edit_p_category/'.$id)->with('thongbao','Cập nhật thành công');
+    }
+    public function delete_slide($id){
+        Product::find($id)->delete();
+        return redirect('Admin/view_product')->with('thongbao','Xóa thành công');
+    }
 }

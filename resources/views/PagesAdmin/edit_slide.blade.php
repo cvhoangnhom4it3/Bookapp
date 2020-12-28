@@ -44,7 +44,7 @@
                         <label for="image">Hình ảnh</label>
                         <input type="file" name="avatar" value="{{$slide->Url}}">
                     </div>
-                    <div class="right__inputImageReview"><img src="assets/images/slide/{{$slide->Url}}" alt=""></div>
+                    <div class="right__inputImageReview"><img src="{{$slide->Url}}" alt=""></div>
                     <button class="btn" type="submit">Cập nhật</button>
                 </form>
             </div>

@@ -88,8 +88,10 @@ class Slidecontroller extends Controller
                 $avatar = str_random(4)."_".$name;
             }
             $file->move("assets/images/slide",$avatar);
-            unlink("assets/images/slide/".$lide->Url);
-            $slide->Url = $avatar;
+            if($slide->Url){
+                unlink($slide->Url);
+            }
+            $slide->Url = "assets/images/slide".$avatar;
         }
         $slide->save();
 

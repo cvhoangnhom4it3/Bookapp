@@ -38,7 +38,7 @@
                         <select name="danhmuc">
                             <option disabled selected>Chọn danh mục</option>
                             @foreach($danhmuc as $dm)
-                                <option  @if($theloai->ID_DM = $dm->ID)
+                                <option  @if($theloai->ID_DM == $dm->ID)
                                     {{"selected"}}
                                 @endif
                                 value="{{$dm->ID}}">{{$dm->TenDM}}</option>
