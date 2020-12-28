@@ -25,8 +25,9 @@ class Ajaxcontroller extends Controller
     	
     	echo "<option disabled selected>Chọn thể loại</option>";
         foreach($theloai as $tl){
-        	echo "<option".if($products->Theloai->ID == $tl->ID){echo ='".selected."'}." value='".$tl->ID."'>".$tl->TenTL."</option>";
-        	
+        	// echo "<option".if($products->Theloai->ID == $tl->ID){echo ='".selected."'}." value='".$tl->ID."'>".$tl->TenTL."</option>";
+
+        	echo '<option value="'.$tl->ID.'" '.(($products->Theloai->ID == $tl->ID)?'selected="selected"':"").'>'.$tl->TenTL.'</option>';
         }
             
     }

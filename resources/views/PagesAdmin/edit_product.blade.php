@@ -88,11 +88,16 @@
                         <label for="label">Nhãn sản phẩm</label>
                         <select name="nhansanpham">
                             <option disabled selected>Nhãn sản phẩm</option>
-                            @if($products->New == 1)
-                                <option value="1">New</option>
-                            @else
-                                <option value="0">Old</option>
-                            @endif
+                            <option value="1"
+                                @if($products->New == 1)
+                                    {{"selected"}}
+                                @endif
+                                >New</option>
+                            <option value="0"
+                                @if($products->New == 0)
+                                    {{"selected"}}
+                                @endif
+                                >Old</option>
                         </select>
                     </div>
                     
@@ -160,12 +165,12 @@
             $.get("Admin/ajax/ready_theloai/"+iddanhmuc+"/"+pro_id, function(data){
                 $("#theloai").html(data);
             });
-            // $("#danhmuc").change(function(){
-            //     var iddanhmuc = $(this).val();
-            //     $.get("Admin/ajax/theloai/"+iddanhmuc, function(data){
-            //         $("#theloai").html(data);
-            //     });
-            // });
+            $("#danhmuc").change(function(){
+                var iddanhmuc = $(this).val();
+                $.get("Admin/ajax/theloai/"+iddanhmuc, function(data){
+                    $("#theloai").html(data);
+                });
+            });
         });
     </script>
 @endsection

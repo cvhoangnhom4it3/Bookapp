@@ -179,7 +179,7 @@ class productcontroller extends changeTitle
       	return redirect('Admin/view_product')->with('thongbao','Cập nhật thành công');
         // return redirect('Admin/edit_p_category/'.$id)->with('thongbao','Cập nhật thành công');
     }
-    public function delete_slide($id){
+    public function delete_product($id){
         Product::find($id)->delete();
         return redirect('Admin/view_product')->with('thongbao','Xóa thành công');
     }
