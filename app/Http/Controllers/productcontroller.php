@@ -44,12 +44,14 @@ class productcontroller extends changeTitle
             'tensanpham'=>'required',
             'avatar'=>'required',
             'giasanpham'=>'required',
+            'theloai'=>'required'
             
         ],
         [
             'tensl.required'=>'Bạn chưa nhập tên slide',
             'avatar.required'=>'Bạn chưa chọn ảnh',
             'giasanpham.required'=>'Bạn chưa nhập giá sản phẩm',
+            'theloai.required'=>'Bạn chưa chọn thể loại'
             
         ]);
         $product = new Product;
@@ -118,11 +120,13 @@ class productcontroller extends changeTitle
         [
             'tensanpham'=>'required',
             'giasanpham'=>'required',
+            'theloai'=>'required'
             
         ],
         [
             'tensl.required'=>'Bạn chưa nhập tên slide',
             'giasanpham.required'=>'Bạn chưa nhập giá sản phẩm',
+            'theloai.required'=>'Bạn chưa chọn thể loại'
             
         ]);
         $products = Product::find($id);
